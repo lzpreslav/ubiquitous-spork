@@ -1,0 +1,16 @@
+apply plugin:'base'
+
+defaultTasks 'setBuildNumber'
+
+task setBuildNumber() {
+    def versionFile = file("VERSION")
+    String content = versionFile.getText("UTF-8")
+
+    String replaceRegex = "x[0-9]*"
+    def replaceString = project.property("buildNumber")
+	
+	println "Build number is " + replaceString
+
+    content = content.replaceAll(replaceRegex, "x" + replaceString)
+    versionFile.write(content, "UTF-8")
+}
